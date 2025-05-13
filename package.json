@@ -1,0 +1,15 @@
+{
+  "name": "bytehost-caller",
+  "version": "1.0.0",
+  "description": "Cloud function with Playwright website caller",
+  "main": "index.js",
+  "scripts": {
+    "dev": "docker compose up --build",
+    "start": "functions-framework --target=callWebsite"
+  },
+  "dependencies": {
+    "playwright-core": "^1.40.1",
+    "@google-cloud/functions-framework": "^3.3.0",
+    "node-cache": "^5.1.2"
+  }
+}
