@@ -43,7 +43,7 @@ jobs:
           gcloud functions deploy callWebsite \
             --gen2 \
             --runtime=nodejs18 \
-            --region=us-central1 \
+            --region=australia-southeast1 \
             --source=. \
             --entry-point=callWebsite \
             --trigger-http \

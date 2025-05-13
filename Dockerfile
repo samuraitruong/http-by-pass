@@ -25,4 +25,5 @@ RUN npx playwright install firefox
 
 COPY . .
 
-CMD [ "npm", "start" ]
+# Use the local server for Docker
+CMD [ "npm", "run", "dev" ]
