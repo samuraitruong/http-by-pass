@@ -57,6 +57,6 @@ jobs:
             --image australia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }} \
             --region australia-southeast2 \
             --platform managed \
-            --cpu 2 \
+            --cpu 1 \
             --memory 4Gi \
             --allow-unauthenticated

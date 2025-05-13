@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 import { firefox } from "playwright-core";
 import NodeCache from "node-cache";
 
@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 // Initialize cache with 5 minutes TTL
-const cache = new NodeCache({ stdTTL: 300 });
+const cache = new NodeCache({ stdTTL: 30 });
 
 async function visitWebsite(url) {
   const browser = await firefox.launch({
@@ -40,7 +40,7 @@ async function visitWebsite(url) {
   }
 }
 
-app.get('/', async (req, res) => {
+app.get("/", async (req, res) => {
   const url = req.query.url || "https://example.com";
   const cacheKey = `website_${url}`;
 
