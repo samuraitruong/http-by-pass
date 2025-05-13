@@ -1,16 +1,15 @@
 {
   "name": "bytehost-caller",
   "version": "1.0.0",
-  "description": "Cloud function with Playwright website caller",
+  "description": "Website caller service with Playwright",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "functions-framework --target=callWebsite",
+    "start": "node index.js",
     "dev": "node index.js"
   },
   "dependencies": {
     "playwright-core": "^1.40.1",
-    "@google-cloud/functions-framework": "^3.3.0",
     "node-cache": "^5.1.2",
     "express": "^4.18.2"
   }

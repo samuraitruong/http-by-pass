@@ -1,6 +1,9 @@
-import { http } from "@google-cloud/functions-framework";
+import express from 'express';
 import { firefox } from "playwright-core";
 import NodeCache from "node-cache";
+
+const app = express();
+const port = process.env.PORT || 8080;
 
 // Initialize cache with 5 minutes TTL
 const cache = new NodeCache({ stdTTL: 300 });
@@ -37,7 +40,7 @@ async function visitWebsite(url) {
   }
 }
 
-http("callWebsite", async (req, res) => {
+app.get('/', async (req, res) => {
   const url = req.query.url || "https://example.com";
   const cacheKey = `website_${url}`;
 
@@ -70,4 +73,8 @@ http("callWebsite", async (req, res) => {
       message: error.message,
     });
   }
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

@@ -1,4 +1,4 @@
-name: Deploy to Cloud Functions
+name: Deploy to Cloud Run
 
 on:
   push:
@@ -43,13 +43,18 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Deploy to Cloud Functions
+      - name: Configure Docker for GCP
+        run: gcloud auth configure-docker australia-southeast1-docker.pkg.dev
+
+      - name: Build and Push Container
         run: |
-          gcloud functions deploy callWebsite \
-            --gen2 \
-            --runtime=nodejs18 \
-            --region=australia-southeast1 \
-            --source=. \
-            --entry-point=callWebsite \
-            --trigger-http \
+          docker build -t australia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }} .
+          docker push australia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }}
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy bytehost-caller \
+            --image australia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }} \
+            --region australia-southeast1 \
+            --platform managed \
             --allow-unauthenticated

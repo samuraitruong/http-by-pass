@@ -8,9 +8,8 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - FUNCTION_TARGET=callWebsite
       - PORT=8080
     volumes:
       - .:/app
       - /app/node_modules
-    command: npm start
+    command: npm run dev
