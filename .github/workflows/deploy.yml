@@ -44,17 +44,17 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Configure Docker for GCP
-        run: gcloud auth configure-docker australia-southeast1-docker.pkg.dev
+        run: gcloud auth configure-docker australia-southeast2-docker.pkg.dev
 
       - name: Build and Push Container
         run: |
-          docker build -t australia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }} .
-          docker push australia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }}
+          docker build -t australia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }} .
+          docker push australia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }}
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy bytehost-caller \
-            --image australia-southeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }} \
-            --region australia-southeast1 \
+            --image australia-southeast2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bytehost-caller/app:${{ github.sha }} \
+            --region australia-southeast2 \
             --platform managed \
             --allow-unauthenticated
